@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://openlayers.org/api/OpenLayers.js"></script> <!-- Needed for maps if I do it... -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>Week 6 Homework</title>
+  </head>
+  <body>
+
+	<div id="weather_main">
+        <p class="title">Open Weather Maps Test</p>
+        
+        <div id="weather_data_container">
+            <p><span id="header">Location: </span><span id="location"></span></p>
+            <p><span class="data_header">Current Conditions: </span><span id="conditions"></span></p>
+            <p><span class="data_header">Temp:  </span><span id="temp"></span></p>
+            <p><span class="data_header">Pressure: </span><span id="pressure"></span></p>
+            <p><span class="data_header">Humidity: </span><span id="humidity"></span></p>
+            <p><span class="data_header">Recent Rainfall: </span><span id="rainfall"></span></p>
+            <p><span class="data_header">Open Weather Request Details: </span><span id="details"></span></p>
+        </div>
+        
+        <div id="weather_form">
+        	<p>Enter City or Zipcode: <input type="text" id="weather_input">
+        	<input id="submit_button" type="submit">
+        </div>
+        
+    </div>
+
+	<div id="bin_main">
+	    <p class="title">HTTPBIN Test</p>
+	    <div id="httpbin_response">
+	        <p><span>Response in JSON: </span><span id="json"></span></p>
+	        <p><span>Response data: </span><span id="reponse"></span></p>
+	    </div>
+	    
+	    <div id="httpbin_form">
+	    	<p>Enter Data to Send to HTTPBIN: <input type="text" id="httpbin_input">
+	    	<input id="httpbin_submit" type="submit">
+	    </div> 
+	</div>
+
+	<script src="script.js"></script>
+  </body>
+</html>
