@@ -1,0 +1,43 @@
+{{#if post}}
+	<h1> POST Request Received</h1>
+
+
+	{{#if getData}}
+	<h3> Query Data </h3>
+	<ul>
+		{{#each getData}}
+			<li>{{this.key}}: {{this.value}}</li>
+		{{/each}}
+	</ul>
+	{{else}}
+		<h4> No query data received </h4>
+	{{/if}}
+
+	{{#if postData}}
+	<h3> POST Data </h3>
+	<ul>
+		{{#each postData}}
+			<li>{{this.key}}: {{this.value}}</li>
+		{{/each}}
+	</ul>
+	{{else}}
+		<h4> No POST data received </h4>
+	{{/if}}
+
+{{else}}
+
+	<h1> GET Request Received</h1>
+	
+	{{#if getData}}
+
+	<h3> GET Data </h3>
+	<ul>
+		{{#each getData}}
+			<li>{{this.key}}: {{this.value}}</li>
+		{{/each}}
+	</ul>
+	{{else}}
+		<h4> No GET data received </h4>
+	{{/if}}
+
+{{/if}}
