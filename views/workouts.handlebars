@@ -1,0 +1,114 @@
+<h1>MySQL Results:</h1>
+
+<p>{{results}}</p>
+
+<div class="row">
+	<form>
+		<button class="btn btn-danger" type="submit" formmethod="post" formaction="/reset-table" onclick="return confirm('This will delete all data. Are you sure you wish to continue?')">Reset Database</button>
+	</form>
+</div>
+
+<div class="row">
+	{{#if errors}}
+	<br>
+	<div class="alert alert-danger">
+
+		<ul>
+			{{#each errors }}
+			<li>{{ this.msg }}</li>
+			{{/each}}
+		</ul>
+	</div>
+
+	{{/if}}
+</div>
+
+<div class="row">
+	<div id="submit-form">
+		<form class="form-inline" action="/workouts/create", method="POST">
+			<h2>Create New Workouts</h2>
+
+			<div class="form-group">
+				<input class="form-control" name="name", type="text" placeholder="Enter Name">
+			</div>
+
+			<div class="form-group">
+				<input class="form-control" name="reps", type="number" placeholder="Enter Number of Reps (i.e. 5)">
+			</div>
+
+			<div class="form-group">
+				<input class="form-control" name="weight", type="number" placeholder="Enter Weight (i.e 25)">
+			</div>
+			<div class="form-group">
+				<div class="radio">
+					<label>
+						<input type="radio" name="lbs" id="optionsRadios1" value="1" checked>
+						LBS
+					</label>
+				</div>
+				or
+				<div class="radio">
+					<label>
+						<input type="radio" name="lbs" id="optionsRadios2" value="0">
+						KG
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input class="form-control", type="date" name="date", placeholder="Enter Date: (2015-02-17)">
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-success" id="submit_btn" type="submit">Create Workout</button>
+			</div>
+		</form>
+	</div>
+</div>
+<br>
+
+<div class="row">
+	{{#if mytable}}
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Reps</th>
+				<th>Weight</th>
+				<th>LBS/KG</th>
+				<th>Date</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		{{#each mytable}}
+		<tbody>
+			<tr>
+				<td>{{{name}}}</td>
+				<td>{{{reps}}}</td>
+				<td>{{{weight}}}</td>
+				<td>
+					{{#if lbs}}
+					LBS
+					{{else}}
+					KG
+					{{/if}}
+				</td>
+				<td>{{{date}}}</td>
+				<td>
+					<form>
+						<button class="btn btn-warning" type="submit" formmethod="get" formaction="/workouts/{{id}}">Edit Workout</button>
+					</form><br>
+					<form>
+						<button class="btn btn-danger" type="submit" formmethod="post" formaction="/workouts/{{id}}">Delete</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+		{{/each}}
+	</table>
+
+	{{else}}
+	<h4> No Data</h4>
+	{{/if}}
+</div>

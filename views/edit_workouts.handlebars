@@ -1,0 +1,71 @@
+<div class="row">
+	{{#if errors}}
+	<br>
+	<div class="alert alert-danger">
+
+		<ul>
+			{{#each errors }}
+			<li>{{ this.msg }}</li>
+			{{/each}}
+		</ul>
+	</div>
+
+	{{/if}}
+</div>
+
+<div class="row">
+	<div id="submit-form">
+		<form class="form-inline" action="/workouts/{{id}}/update", method="GET">
+			<h2>Edit Workouts</h2>
+
+			<div class="form-group">
+				<input class="form-control" name="name", type="text" value="{{name}}">
+			</div>
+
+			<div class="form-group">
+				<input class="form-control" name="reps", type="number" value="{{reps}}">
+			</div>
+
+			<div class="form-group">
+				<input class="form-control" name="weight", type="number" value="{{weight}}">
+			</div>
+			<div class="form-group">
+				<div class="radio">
+					{{#if lbs}}
+					<label>
+						<input type="radio" name="lbs" id="optionsRadios1" value="1" checked>
+						LBS					
+					</label>
+					{{else}}
+					<label>
+						<input type="radio" name="lbs" id="optionsRadios1" value="1">
+						LBS					
+					</label>
+					{{/if}}
+				</div>
+				or
+				<div class="radio">
+					{{#if kg}}
+					<label>
+						<input type="radio" name="lbs" id="optionsRadios2" value="0" checked>
+						KG
+					</label>
+					{{else}}
+					<label>
+						<input type="radio" name="lbs" id="optionsRadios2" value="0">
+						KG
+					</label>
+					{{/if}}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input class="form-control", type="date" name="date", value="{{date}}">
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-success" id="submit_btn" type="submit">Update Workout</button>
+			</div>
+		</form>
+	</div>
+</div>

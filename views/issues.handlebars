@@ -1,0 +1,107 @@
+<header class="navigation">
+	<h1>YouTube API How-To Guide</h1>
+	<ul id="navigation_links">
+		<li><a href="/how-to">Home</a></li>
+		<li><a href="/common-issues">API Issues</a></li>
+		<li><a href="/embed-player">Embed a YouTube</a></li>
+		<li><a href="/playback">Playback Functions</a></li>
+		<li><a href="/queuing">Queuing Functions</a></li>
+	</ul>
+</header>
+
+<div class="row">
+	<div class="col-md-12">
+		<h4>
+			In this section, we will discuss some common API issues with the YouTube API. 
+		</h4>
+		<p  id="citation" style="text-align: center">
+			YouTube documentation can be found at
+			<a href="https://developers.google.com/youtube/">https://developers.google.com/youtube/</a>
+		</p>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Video Unavailable</h2>
+		<p>
+			Since YouTube does not remove metadata such as a
+			video's title and description after it is deleted, your player will still try to play it.
+			The best way to fix this is to remove the video from your playlists and single content players.
+			For single content players, change the <code>videoId</code> parameter in your load function.
+		</p>
+
+		<code id="indent">
+			<div style="text-align: center;">player.cueVideoById(VIDEO1); //VIDEO1 is unavailable</div>
+		</code>
+		
+		<h5 style="text-align: center;">Becomes</h5>
+		
+		<code id="indent">
+			<div style="text-align: center;">player.cueVideoById(VIDEO2); //This video may be available.</div>
+		</code>
+		
+		</br>
+		
+		<div id="indent">
+			<b>Note:</b> If you do not wish to replace the video, your best course of 
+			action is to delete the video entirely. If the video was part of a playlist, remove the unavailable
+			<code>videoId</code> from
+			the array of IDs.
+		</div>
+		
+		</br>
+		
+		<code id="indent">
+			<div style="text-align: center;">var playlist = [VIDEO1, VIDEO2, VIDEO3]; //VIDEO1 is unavailable</div>
+		</code>
+		
+		<h5 style="text-align: center;">Becomes</h5>
+		
+		<code id="indent">
+			<div style="text-align: center;">var playlist = [VIDEO2, VIDEO3];</div>
+		</code>
+
+		</br></br>
+		
+		<div id="indent">
+			<b>Note:</b> You can also replace the <code>videoId</code> with a different video if you prefer.
+		</div>
+
+	</div>
+
+	<div class="col-md-12">
+		<h2>Identifying a Video</h2>
+		
+		<p>
+			A common mistake when trying to identify a video for operations (ex: rating or adding to favorites) 
+			is to use the <code>&lt;id&gt;</code> tag instead of the <code>&lt;yt:videoid&gt;</code> tag.
+			This will cause certain actions to be applied to the wrong video since the <code>&lt;id&gt;</code> tag
+			changes depending on the video usage, whereas the <code>&lt;yt:videoid&gt;
+			</code> tag will always refer to the same video.</br></br>
+
+			The following code is an example of what the <code>&lt;yt:videoid&gt;</code> should look like.
+		</p>
+
+		<pre class="prettyprint-html notranslate">
+&lt;entry xmlns="http://www/w3.org/2005/Atom"&gt;</br>
+	&lt;id&gt;VIDEO_ID&lt;/id&gt;</br>
+	&lt;yt:position&gt;1&lt;/yt:position&gt;</br>
+&lt;/entry&gt;
+		</pre>
+
+		</br></br>
+		
+		<div id="citationIndent">
+			Code Reference: 
+			<a href="https://developers.google.com/youtube/2.0/developers_guide_protocol_testing">
+				https://developers.google.com/youtube/2.0/developers_guide_protocol_testing
+			</a>
+		</div>
+	</div>
+	
+</div>
+
+<footer class="foot">
+	@Sergio Pedroza<br>
+  	Documentation produced by YouTube can be found at
+	<a href="https://developers.google.com/youtube/">https://developers.google.com/youtube/</a>
+</footer>

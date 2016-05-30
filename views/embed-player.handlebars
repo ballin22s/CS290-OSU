@@ -1,0 +1,126 @@
+<header class="navigation">
+	<h1>YouTube API How-To Guide</h1>
+	<ul id="navigation_links">
+		<li><a href="/how-to">Home</a></li>
+		<li><a href="/common-issues">API Issues</a></li>
+		<li><a href="/embed-player">Embed a YouTube</a></li>
+		<li><a href="/playback">Playback Functions</a></li>
+		<li><a href="/queuing">Queuing Functions</a></li>
+	</ul>
+</header>
+
+<div class="row">
+	
+	<div class="col-md-12">
+		<h4>
+			In order to embed a YouTube player you will be using the IFrame API.
+		</h4>
+		<p style="text-align: center;">
+			The IFrame API uses the <code>&lt;iframe&gt;</code> tag to embed a video player, and it uses Javascript 
+			to do things like queue videos and adjust the volume. 
+		</p>
+	</div>
+	
+	<div class="col-md-12">
+		<h2>Requirements</h2>
+		<ul id="indent">
+			<li>
+				<p>The user's browser must support the HTML5 <code>postMessage</code> feature. Most modern browsers support 
+				postMessage, though Internet Explorer 7 does not support it.</p>
+			</li>
+			<li>
+				<p>Embedded players must have a viewport that is at least 200px by 200px. If the player displays controls, 
+				it must be large enough to fully display the controls without shrinking the viewport below 
+				the minimum size. We recommend 16:9 players be at least 480 pixels wide and 270 pixels tall.</p>
+			</li>
+			<li>
+				<p>Any web page that uses the IFrame API must implement the <code>onYouTubeIframeAPIReady</code> function.
+				This function will be called after the page has finished downloaded the JavaScript for the player and 
+				will enable you to use the the API on your page.</p>
+			</li>
+		</ul>	
+	</div>
+	
+	<div class="col-md-12">
+		<h2>Loading a Video Player</h2>
+		
+		<p style="text-align: center;">
+			You can load a YouTube video by using an <code>iframe</code> tag or by using Javascript.  
+		</p>
+		
+			<h3><code>&lt;iframe&gt;</code>
+			tag</h3>
+			<p>
+				When using the <code>&lt;iframe&gt;</code> tag, you must specify all of your parameters inside the tag.
+				This includes the height and width of the player, the source location of the video, and the frameborder.
+			</p>
+			
+			<p>
+				<b>Example:</b>
+			</p>
+			
+			<pre class="prettyprint-html notranslate">
+<span class="com">// width: refers to the width of the video player.</span>
+<span class="com">// height: refers to the height of the video player.</span>
+<span class="com">// src: contains the id of the video you wish to embed. </span>
+<span class="com">// It is also a good idea to include the origin parameter which specifies http vs https and the full domain of your host page.</span>
+	
+&lt;iframe id="player" type="text/html" width="640" height="390" 
+src="http://www.youtube.com/embed/VideoID?enablejsapi=1&origin=http://yourWebPage.com"
+frameborder="0"&gt;&lt;/iframe&gt;
+			</pre>
+		
+		<h3>
+			JavaScript
+		</h3>
+		
+		<p>
+			If you would rather use JavaScript to create your YouTube player, then use the function below:
+		</p>
+		
+		<pre class="prettyprint-html notranslate">
+				
+<span class="com">// This code loads the IFrame Player API code asynchronously.</span>
+				
+var tag = document.createElement('script');</br>
+tag.src = "https://www.youtube.com/iframe_api";</br>
+var firstScriptTag = document.getElementsByTagName('script')[0];</br>
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);</br>
+
+<span class="com">// This function creates an &lt;iframe&gt; (and YouTube player)</span>
+<span class="com">// after the API code downloads.</span>
+
+var player;</br>
+function onYouTubeIframeAPIReady() {</br>
+	player = new YT.Player('player', {
+		height: '390',
+		width: '640',
+		videoId: 'ID of your video',
+		
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange</br>
+		}
+	});</br>
+}
+
+		</pre>
+		
+	</div>
+	
+	<div class="col-md-12">
+		<p  id="citation">
+			Code derived from YouTube's documentation:
+			<a href="https://developers.google.com/youtube/iframe_api_reference#Getting_Started">
+				https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+			</a>.
+		</p>
+	</div>
+	
+</div>	
+
+<footer class="foot">
+	@Sergio Pedroza<br>
+  	Documentation produced by YouTube can be found at
+	<a href="https://developers.google.com/youtube/">https://developers.google.com/youtube/</a>
+</footer>

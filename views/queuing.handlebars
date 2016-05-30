@@ -1,0 +1,206 @@
+<header class="navigation">
+	<h1>YouTube API How-To Guide</h1>
+	<ul id="navigation_links">
+		<li><a href="/how-to">Home</a></li>
+		<li><a href="/common-issues">API Issues</a></li>
+		<li><a href="/embed-player">Embed a YouTube</a></li>
+		<li><a href="/playback">Playback Functions</a></li>
+		<li><a href="/queuing">Queuing Functions</a></li>
+	</ul>
+</header>
+
+<div class="row">
+	<div class="col-md-12">
+		<h4>
+			In order to play a YouTube video, you must first queue it.
+		</h4>
+		<p style='text-align: center;'>
+			The YouTube API includes functionality to allow you to queue a single video, a playlist, and search
+			results. </br>Here are a few of the functions that will help you do this.
+		</p>
+	</div>
+	
+	<div class="col-md-12">
+		<h2>Queue Single Video</h2>
+		
+		<p>
+			Queuing functions are used to individual videos or playlists.  This comes in handy when you have
+			more than one video that you would like to show on the same player.  There are two different syntax
+			options for doing this, argument and object, each of which will be explored.
+		</p>
+		
+		<p>
+			The argument syntax requires that the arguments be listed in a perticular order.  Whereas the object
+			syntax allows you to pass an opject as a single perameter, and define it as you wish. 
+			To illistrate this point, let's take a look at the <code>cueVideoById</code> function.
+		</p>
+		
+		<h4>Argument syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.cueVideoById(videoId:String,
+	  	    startSeconds:Number,
+	   	    suggestedQuality:String):Void
+		</pre>
+		
+		<p>
+			Everything that gets passed in is a separate argument and must be previously assigned to a variable
+			or defined during the function call.  For example, <code>videoId</code> is of the type string and must either be
+			entered as <code>"VIDEO1"</code> or assigned to a variable which is then passed as an argument.
+		</p>
+		
+		<h4>Object syntax</h4>
+		
+		<p>With object syntax, one object is passed in with a number of name:value pairs defined upon calling the
+		function.  In this version, <code>videoId</code> is passed by <code>"videoId: ABC123"</code>.</p>
+
+		<pre class="prettyprint-html notranslate">
+player.cueVideoById({videoId:String,
+  		     startSeconds:Number,
+	  	     endSeconds:Number,
+	  	     suggestedQuality:String}):Void
+		</pre>
+		
+		<p>
+			Now that we have talked about the differences of the syntax, let's look at the actual arguments/objects.
+			<ul id="indent">
+				<li><code>videoId</code> is the unique identifier of the video that is to be played.</li>
+				<li><code>startSeconds</code> is an optional parameter that will accept either a float or an integer.
+				It specifies the time at which the video will start playing.  For instance, if <code>startSeconds=5</code>
+				then the video would start playing at 5 seconds into the playtime.</li>
+				<li><code>endSeconds</code> is another optional parameter that is similar to <code>startSeconds</code>.
+				The difference is <code>endSeconds</code> will specify the time the video will stop playing.</li>
+				<li><code>suggestedQuality</code> is also optional and will set the video quality of the playback.</li>
+			</ul>
+		</p>
+				
+		<p>
+			<b>Note:</b> The <code>cueVideoById</code> function does not play the video, but it loads the thumbnail and prepares
+			player.  The player will then wait until <code>playVideo()</code> or <code>seekTo()</code> is called. 
+		</p>
+		
+		</br>
+		
+		<p>
+			The <code>loadVideoByID</code> function however, will load and play the video without any outside function
+			calls.  The <code>loadVideoByID</code> syntax is as follows:
+		</p>
+		
+		<h4>Argument syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.loadVideoById(videoId:String,
+                     startSeconds:Number,
+                     suggestedQuality:String):Void
+		</pre>
+		
+		<h4>Object syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.loadVideoById({videoId:String,
+                      startSeconds:Number,
+                      endSeconds:Number,
+                      suggestedQuality:String}):Void
+		</pre>
+		
+		</br>
+		
+		<p>
+			If you would prefer to use a URL to load the video you can do that with the <code>loadVideoByURL</code>
+			function as shown below:
+		</p>
+		
+		<h4>Argument syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.loadVideoByURL(mediaContentUrl:String,
+    	              startSeconds:Number,
+                      suggestedQuality:String):Void
+		</pre>
+		
+		<h4>Object syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.loadVideoById({mediaContentUrl:String,
+                      startSeconds:Number,
+                      endSeconds:Numer,
+                      suggestedQuality:String}):Void
+		</pre>
+
+		<p>
+			This function performs the same task as the <code>loadVideoByID</code> function but uses <code>mediaContentUrl
+			</code> instead of <code>videoId</code>.  <code>mediaContentUrl</code> specifies a fully qualified YouTube
+			player URL in the format <code>http://www.youtube.com/v/VIDEO_ID?version=3</code>.
+		</p>
+	</div>
+	
+	<div class="col-md-12">
+		<h2>Queue Playlists</h2>
+		
+		<p>
+			The process for loading playlists is very similar to that of individual videos.  The difference is that
+			instead of using a singular <code>videoId</code>, playlists use an array of ids.
+		</p>
+		
+		<h4>Argument syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.cuePlaylist(playlist:String|Array,
+	  	   inded:Number,
+	  	   startSeconds:Number,
+	  	   suggestedQuality:String):Void
+		</pre>
+		
+		<p><code>playlist</code> specifies an array of YouTube video IDs that the user wishes to load.</p>
+		<p>The <code>index</code> parameter is optional and specifies the index of the first video to
+		be played.  Keep in mind, that the first video in the array is index 0.</p>
+			
+		<h4>Object syntax</h4>
+		
+		<pre class="prettyprint-html notranslate">
+player.cuePlaylist({listType:String,
+		    list:String,
+		    index:Number,
+		    startSeconds:Number,
+		    suggestedQuality:String}):Void
+		</pre>
+		
+		<p><code>listType</code> refers to the type of result feed that you wish to retrieve.  The 
+		allowable values are <code>playlist</code>, <code>search</code>, and <code>user_uploads</code>
+		with the default value being <code>playlist</code>.</p>
+		
+		<p>the <code>list</code> property contains a key that is used to identify the particular list
+		of videos that YouTube should return.  What the <code>list</code> property refers to changes
+		depending on the <code>listType</code> that is being used.</p>
+		
+		<ul>
+			<li>If <code>playlist</code> is used, then <code>list</code> will specify either the 
+			playlist ID or an array of video IDs.</li>
+			<li>If <code>search</code> is used, then <code>list</code> refers to the search query.</li>
+			<li>If <code>user_uploads</code> is used, then <code>list</code> identifies the user
+			whose uploaded videos will be returned</li>
+		</ul>
+		
+		<p>
+			The <code>cuePlaylist</code> function works like the <code>cueVideoById</code> function in the respect
+			that it will not play right away. If you wish to have the playlist begin playing immediatly, the 
+			<code>loadPlaylist</code> function uses the same syntax as the <code>cuePlaylist</code> function but
+			will start the videos immediatly.
+		</p>
+	</div>
+	
+	<div class="col-md-12">
+		<p  id="citation">
+			Code derived from YouTube's documentation:
+			<a href="https://developers.google.com/youtube/iframe_api_reference#Functions">
+				https://developers.google.com/youtube/iframe_api_reference#Functions
+			</a>.
+		</p>
+	</div>
+</div>	
+
+<footer class="foot">
+	@Sergio Pedroza<br>
+  	Documentation produced by YouTube can be found at
+	<a href="https://developers.google.com/youtube/">https://developers.google.com/youtube/</a>
+</footer>
